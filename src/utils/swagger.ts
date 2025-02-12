@@ -9,7 +9,9 @@ const options: swaggerJSDoc.Options = {
     openapi: "3.0.0",
     info: {
       title: "JU API Docs",
+      description: "Swagger Documentation for JU_Admin authorized by Justom",
       version,
+      servers: ["http://localhost:5000"],
     },
     components: {
       securitySchemas: {
@@ -26,7 +28,7 @@ const options: swaggerJSDoc.Options = {
       ],
     },
   },
-  apis: ["./src/routes.ts", "./src/schema/*.ts"],
+  apis: ["./src/routers/*.ts"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
