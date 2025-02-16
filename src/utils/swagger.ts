@@ -13,6 +13,7 @@ const options: swaggerJSDoc.Options = {
       version,
       servers: ["http://localhost:5000"],
     },
+    schemes: ["/juAPI"],
     components: {
       securitySchemas: {
         bearerAuth: {
@@ -28,7 +29,7 @@ const options: swaggerJSDoc.Options = {
       ],
     },
   },
-  apis: ["./src/routers/*.ts"],
+  apis: ["./src/routers/*.ts", "./src/schemas/*.ts"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

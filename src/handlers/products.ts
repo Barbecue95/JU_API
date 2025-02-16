@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateProductDtos } from "../dtos/CreateProduct.dto";
+import { CreateProductSchema } from "../schemas/CreateProduct.schema";
 
 export function getProducts(req: Request, res: Response) {
   res.status(200).send("This is product API");
@@ -14,6 +14,6 @@ export function DeleteProductById(req: Request, res: Response) {
 }
 
 export function createProduct(
-  req: Request<{}, {}, CreateProductDtos>,
+  req: Request<{}, {}, CreateProductSchema>,
   res: Response
 ) {}
