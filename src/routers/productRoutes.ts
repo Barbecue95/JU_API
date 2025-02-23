@@ -3,19 +3,22 @@ import {
   createProduct,
   DeleteProductById,
   getProductById,
+  getProducts,
 } from "../handlers/products";
+import authMiddleware from "../middleware/authMiddleware";
 
 const router = Router();
 
 /**
  * @openapi
- * /products/CreateProduct:
+ * /products:
  *   get:
- *     tags:
+ *      summary: Get all products
+ *      tags:
  *       - Product
- *     security:
+ *      security:
  *       - BearerAuth: []
- *     responses:
+ *      responses:
  *       "200":
  *         description: Product created successfully
  *       "400":
@@ -23,12 +26,39 @@ const router = Router();
  *       "401":
  *         description: Unauthorized - Invalid token
  */
-router.get("/", getProductById);
+router.get("/", authMiddleware, getProducts);
 
 /**
  * @openapi
- * /products/CreateProduct:
+ * /products/{id}:
+ *   get:
+ *      summary: Get product by id
+ *      tags:
+ *       - Product
+ *      parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Product ID
+ *      security:
+ *       - BearerAuth: []
+ *      responses:
+ *       "200":
+ *         description: Product created successfully
+ *       "400":
+ *         description: Bad request - Unable to create product
+ *       "401":
+ *         description: Unauthorized - Invalid token
+ */
+router.get("/:id", getProductById);
+
+/**
+ * @openapi
+ * /products:
  *   post:
+ *     summary: Create a Product
  *     tags:
  *       - Product
  *     requestBody:
@@ -40,19 +70,20 @@ router.get("/", getProductById);
  *     security:
  *       - BearerAuth: []
  *     responses:
- *       "200":
+ *       201:
  *         description: Product created successfully
- *       "400":
+ *       400:
  *         description: Bad request - Unable to create product
- *       "401":
+ *       401:
  *         description: Unauthorized - Invalid token
  */
 
 router.post("/", createProduct);
 
+
 /**
  * @openapi
- * /products/DeleteProduct:
+ * /products/{id}:
  *   delete:
  *     summary: Delete a product
  *     tags:
@@ -60,19 +91,21 @@ router.post("/", createProduct);
  *     parameters:
  *       - in: path
  *         name: id
- *         type: integer
  *         required: true
- *         description: Product Id
+ *         schema:
+ *           type: integer
+ *         description: Product ID
  *     security:
  *       - BearerAuth: []
  *     responses:
- *       "200":
- *         description: Fetched all products successfully
- *       "401":
+ *       200:
+ *         description: Product deleted successfully
+ *       401:
  *         description: Unauthorized - Invalid token
- *       "400":
- *         description: Unable to fetch products
+ *       400:
+ *         description: Bad request - Unable to delete product
  */
 router.delete("/:id", DeleteProductById);
+
 
 export default router;

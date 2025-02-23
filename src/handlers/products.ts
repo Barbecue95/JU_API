@@ -6,7 +6,7 @@ export function getProducts(req: Request, res: Response) {
 }
 
 export function getProductById(req: Request, res: Response) {
-  res.status(200).send("This is product edit API");
+  res.status(200).send("get product by id");
 }
 
 export function DeleteProductById(req: Request, res: Response) {
